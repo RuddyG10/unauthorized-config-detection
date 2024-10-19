@@ -1,4 +1,4 @@
-#Repositorio de Inventario de Configuraciones
+# Repositorio de Inventario de Configuraciones
 
 Aqui se guardan todos los archivos necesarios para el funcionamiento del programa y configuracion de la libreria Nornir.
 
