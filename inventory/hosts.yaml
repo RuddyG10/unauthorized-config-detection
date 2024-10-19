@@ -1,4 +1,6 @@
 ---
+#Utiliza telnet
+
 # R38:
 #   hostname: 192.168.100.121
 #   port: 33318
@@ -9,6 +11,8 @@
 #     napalm_driver: ios
 #   groups:
 #     - Routers
+
+#Utiliza Telnet
 
 # SW14:
 #   hostname: 192.168.100.121
@@ -42,6 +46,8 @@ Sandbox_Cisco_XE:
   password: C1sco12345
   groups:
     - Switches
+
+#No admite revision de archivos
 
 # Sandbox_Cisco_XR:
 #   hostname: sandbox-iosxr-1.cisco.com
