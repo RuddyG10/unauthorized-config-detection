@@ -1,0 +1,49 @@
+from napalm import get_network_driver
+# # Usar NAPALM para obtener el driver del dispositivo
+    # driver = get_network_driver(task.host.platform)
+
+    # # Establecer conexión con el dispositivo usando NAPALM
+    # optional_args = {"port": task.host.port}  # Si es necesario incluir argumentos opcionales como el puerto
+    # device = driver(
+    #     hostname=task.host.hostname,
+    #     username=task.host.username,
+    #     password=task.host.password,
+    #     optional_args=optional_args
+    # )
+
+    # device.open()
+
+    # # Obtener el running-config actual
+    # current_running_config = device.get_config()["running"]
+
+    # # Leer el archivo del running-config autorizado
+    # authorized_config_file = f"./authorize_config/{task.host.name}_running_config_authorized.txt"
+    # with open(authorized_config_file, "r") as file:
+    #     authorized_running_config = file.read()
+
+    # # Comparar el running-config actual con el autorizado
+    # if current_running_config != authorized_running_config:
+    #     print(f"Cambio no autorizado detectado en {task.host.name}")
+        
+    #     # Mostrar las diferencias detectadas (opcional)
+    #     diff = difflib.unified_diff(
+    #         authorized_running_config.splitlines(),
+    #         current_running_config.splitlines(),
+    #         lineterm='',
+    #         fromfile='Authorized Config',
+    #         tofile='Current Config'
+    #     )
+    #     for line in diff:
+    #         print(line)
+
+    #     # Revertir a la configuración autorizada si se detecta un cambio no autorizado
+    #     print(f"Revirtiendo configuración no autorizada en {task.host.name}")
+    #     device.load_merge_candidate(config=authorized_running_config)
+    #     # print(device.compare_config())
+    #     device.commit_config()
+    #     print(f"Configuración revertida en {task.host.name}")
+    # else:
+    #     print(f"No se detectaron cambios no autorizados en {task.host.name}")
+
+    # # Cerrar la conexión al dispositivo
+    # device.close()
