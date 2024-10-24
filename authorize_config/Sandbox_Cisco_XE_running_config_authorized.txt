@@ -281,17 +281,8 @@ snmp-server community blablabla RO
 !
 control-plane
 !
-banner login ^CCCWelcome to the workshop on EE5304 Computer Networks^C
-banner motd ^CCCCC
-Welcome to the DevNet Sandbox for Cat8000V and IOS XE
-
-The following programmability features are already enabled:
-
--NETCONF
--RESTCONF
-
-Thanks for stopping by.
-^C
+banner login ^CCGrupo 7IRIC^C
+banner motd ^CCHoy es un buen dia ... Jerry les manda saludos :)^C
 !
 line con 0
  exec-timeout 0 0

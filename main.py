@@ -6,9 +6,9 @@ import difflib
 from save_authorized_config import saveAuthorizeConfig
 import logging
 
-#Configuracion del log
+# Configuración del log
 logging.basicConfig(
-    filename="./logs/error_log.log", #Errores,
+    filename="./logs/error_log.log",  # Errores
     level=logging.ERROR,
     format="%(asctime)s - %(levelname)s %(message)s"
 )
@@ -17,14 +17,12 @@ logging.basicConfig(
 nr = InitNornir(config_file="config.yaml")
 
 
-
 """Método para detectar y revertir configuraciones no autorizadas"""
 def detectConfig(task):
     try:
-
         print(f"Iniciando auditoría en {task.host.name}...")
         
-        # Obtener Configuración actual del dispositivo
+        # Obtener configuración actual del dispositivo
         current_config_result = task.run(
             napalm_get,
             getters=["config"]
@@ -79,9 +77,26 @@ def detectConfig(task):
         else:
             print(f"No se detectaron cambios no autorizados en {task.host.name}")
     except Exception as ex:
-         print(f"Ocurrio un error durante el procesamiento en el dispositivo {task.host.name}")
-         logging.error(f"Error en el dispositivo {task.host.name}: {ex}",exc_info=True)
+        print(f"Ocurrió un error durante el procesamiento en el dispositivo {task.host.name}")
+        logging.error(f"Error en el dispositivo {task.host.name}: {ex}", exc_info=True)
 
+
+def showDevices():
+    devices = list(nr.inventory.hosts.keys())
+    print("\n--- Seleccione un dispositivo ---")
+    for idx, device in enumerate(devices, 0):
+        print(f"{idx}. {device}")
+    choice = input("Seleccione el numero del dispositivo: ")
+
+    try:
+        device_indx = int(choice)
+        if 0 <= device_indx < len(devices):
+            return devices[device_indx]
+        else:
+            return None
+    except ValueError:
+        print("Entrada invalida. Por favor, ingrese un numero.")
+        return None
 
 
 # Función para mostrar el menú y ejecutar las opciones
@@ -95,13 +110,19 @@ def show_menu():
         choice = input("Seleccione una opción (1-3): ")
 
         if choice == '1':
-            print("Guardando configuración de los dispositivos...\n")
-            result = nr.run(task=saveAuthorizeConfig)
-            #print_result(result)
+            device = showDevices()
+            if device:
+                print(f"Guardando configuración del dispositivo {device}...\n")
+                result = nr.filter(name=device).run(task=saveAuthorizeConfig)
+                #print_result(result)
+                
         elif choice == '2':
-            print("Realizando auditoría de configuración...\n")
-            result = nr.run(task=detectConfig)
-            #print_result(result)
+            device = showDevices()
+            if device:
+                print(f"Realizando auditoría de configuración en {device}...\n")
+                result = nr.filter(name=device).run(task=detectConfig)
+                #print_result(result)
+                
         elif choice == '3':
             print("Saliendo del programa...")
             break

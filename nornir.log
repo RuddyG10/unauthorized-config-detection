@@ -1,0 +1,306 @@
+2024-10-24 14:44:01,803 -  nornir.core -     INFO -        run() - Running task 'saveAuthorizeConfig' with args {} on 4 hosts
+2024-10-24 14:44:01,809 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/rgomez/.local/lib/python3.10/site-packages/napalm/base/__init__.py", line 99, in get_network_driver
+    raise ModuleImportError(
+napalm.base.exceptions.ModuleImportError: Cannot import "cisco_ios_telnet". Is the library installed?
+
+2024-10-24 14:44:01,817 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'napalm_get' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir_napalm/plugins/tasks/napalm_get.py", line 32, in napalm_get
+    device = task.host.get_connection(CONNECTION_NAME, task.nornir.config)
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/inventory.py", line 494, in get_connection
+    self.open_connection(
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/inventory.py", line 546, in open_connection
+    conn_obj.open(
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir_napalm/plugins/connections/__init__.py", line 55, in open
+    network_driver = get_network_driver(platform)
+  File "/home/rgomez/.local/lib/python3.10/site-packages/napalm/base/__init__.py", line 99, in get_network_driver
+    raise ModuleImportError(
+napalm.base.exceptions.ModuleImportError: Cannot import "arista_eos_telnet". Is the library installed?
+
+2024-10-24 14:44:50,017 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'hosts': ['Sandbox_Cisco_XR']} on 4 hosts
+2024-10-24 14:44:50,019 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:44:50,020 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:44:50,021 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:44:50,021 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:45:57,463 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'hosts': ['Sandbox_Cisco_XR']} on 4 hosts
+2024-10-24 14:45:57,465 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:45:57,467 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:45:57,467 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:45:57,468 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:46:13,787 -  nornir.core -  WARNING -        run() - Task 'detectConfig' has not been run – 0 hosts selected
+2024-10-24 14:47:28,521 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'hosts': ['SW14']} on 4 hosts
+2024-10-24 14:47:28,523 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:47:28,523 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:47:28,524 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:47:28,524 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:48:03,928 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'hosts': ['Sandbox_Cisco_XE']} on 5 hosts
+2024-10-24 14:48:03,930 - nornir.core.task -    ERROR -      start() - Host 'R38': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:48:03,931 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:48:03,932 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:48:03,932 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 14:48:03,933 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:00:16,593 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'hosts': ['Sandbox_Cisco_XE']} on 5 hosts
+2024-10-24 15:00:16,595 - nornir.core.task -    ERROR -      start() - Host 'R38': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:00:16,596 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:00:16,597 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:00:16,597 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:00:16,598 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:02:48,426 -  nornir.core -  WARNING -        run() - Task 'saveAuthorizeConfig' has not been run – 0 hosts selected
+2024-10-24 15:03:30,752 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'host': 'Sandbox_Cisco_XE'} on 5 hosts
+2024-10-24 15:03:30,754 - nornir.core.task -    ERROR -      start() - Host 'R38': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:03:30,755 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:03:30,756 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:03:30,756 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:03:30,757 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:10:11,102 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'host': 'Sandbox_Cisco_XE'} on 5 hosts
+2024-10-24 15:10:11,105 - nornir.core.task -    ERROR -      start() - Host 'R38': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:10:11,106 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:10:11,106 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:10:11,106 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:10:11,107 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:17:41,439 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'hosts': ['Sandbox_Cisco_XE']} on 5 hosts
+2024-10-24 15:17:41,441 - nornir.core.task -    ERROR -      start() - Host 'R38': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:17:41,442 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:17:41,443 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:17:41,443 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:17:41,444 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'hosts'
+
+2024-10-24 15:17:57,039 -  nornir.core -  WARNING -        run() - Task 'detectConfig' has not been run – 0 hosts selected
+2024-10-24 15:19:11,335 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'host': 'Sandbox_Cisco_XE'} on 5 hosts
+2024-10-24 15:19:11,337 - nornir.core.task -    ERROR -      start() - Host 'R38': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:19:11,337 - nornir.core.task -    ERROR -      start() - Host 'SW14': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:19:11,338 - nornir.core.task -    ERROR -      start() - Host 'ARISTA': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:19:11,338 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:19:11,339 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XR': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:22:14,034 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {'host': 'Sandbox_Cisco_XE'} on 1 hosts
+2024-10-24 15:22:14,036 - nornir.core.task -    ERROR -      start() - Host 'Sandbox_Cisco_XE': task 'detectConfig' failed with traceback:
+Traceback (most recent call last):
+  File "/home/rgomez/.local/lib/python3.10/site-packages/nornir/core/task.py", line 99, in start
+    r = self.task(self, **self.params)
+TypeError: detectConfig() got an unexpected keyword argument 'host'
+
+2024-10-24 15:23:39,804 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {} on 1 hosts
+2024-10-24 15:24:10,129 -  nornir.core -     INFO -        run() - Running task 'detectConfig' with args {} on 1 hosts
