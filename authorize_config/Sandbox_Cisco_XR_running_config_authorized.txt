@@ -1,12 +1,14 @@
-Sat Oct 19 18:23:36.828 UTC
+Thu Oct 24 19:19:48.218 UTC
 
 !! IOS XR Configuration 7.3.2
-!! Last configuration change at Sat Oct 19 16:57:27 2024 by admin
+!! Last configuration change at Thu Oct 24 16:57:20 2024 by admin
 !
+hostname Test123
 snmp-server traps alarm
 banner motd "Hello there! Hoping you are having a great day
 ... Welcome to '$(hostname)',
 your favorite CISCO.IOSXR.IOSXR Sandbox"
+logging buffered informational
 username admin
  group root-lr
  group cisco-support
@@ -72,6 +74,16 @@ call-home
 netconf-yang agent
  ssh
 !
+ipv4 access-list acl_1
+ 10 remark Block-Denial-of-Service
+ 100 deny ipv4 host 192.0.2.10 any
+ 200 deny ipv4 host 192.0.2.11 any
+ 300 deny ipv4 host 192.0.2.13 any
+ 10000 permit ipv4 any any
+!
+ipv4 access-list acl_manual
+ 100 deny ipv4 host 192.0.2.10 any
+!
 interface Bundle-Ether6
  description #test#
 !
@@ -83,6 +95,10 @@ interface Bundle-Ether6.6477
  ipv4 unreachables disable
  encapsulation dot1q 2800 second-dot1q 502
 !
+interface Loopback0
+ description Loopback Interface
+ ipv4 address 192.0.2.1 255.255.255.255
+!
 interface Loopback1
 !
 interface Loopback2
@@ -90,6 +106,14 @@ interface Loopback2
 interface Loopback4
 !
 interface Loopback6
+!
+interface Loopback10
+ ipv4 address 192.168.10.1 255.255.255.255
+!
+interface tunnel-ip3
+ mtu 512
+ tunnel source Loopback10
+ tunnel destination 20.248.252.100
 !
 interface MgmtEth0/RP0/CPU0/0
  ipv4 address 10.10.20.175 255.255.255.0
@@ -118,6 +142,23 @@ interface GigabitEthernet0/0/0/5
 interface GigabitEthernet0/0/0/6
  shutdown
 !
+prefix-set CUST-ATOS-V4
+  45.116.220.0/22 le 32,
+  103.57.32.0/22 le 32,
+  45.116.220.0/22 le 32,
+  103.57.32.0/22 le 32,
+  165.187.131.0/24 le 32,
+  167.30.140.0/24 le 32,
+  167.30.213.0/24 le 32,
+  165.187.0.0/16 le 32,
+  165.187.0.0/16 le 32,
+  165.187.128.0/24 le 32,
+  165.187.132.0/22 le 32,
+  165.187.136.0/24 le 32,
+  165.187.137.0/24 le 32,
+  167.30.205.0/24
+end-set
+!
 route-policy allowedall
   done
 end-policy
@@ -128,6 +169,10 @@ router static
   0.0.0.0/0 MgmtEth0/RP0/CPU0/0 10.10.20.254
   111.118.1.1/32 Null0 tag 9999 description ddos-2024/10/19-stage3
   222.228.1.1/32 Null0 tag 9999 description ddos-2024/10/19-stage2
+ !
+!
+router isis default
+ interface tunnel-ip3
  !
 !
 snmp-server traps isis all

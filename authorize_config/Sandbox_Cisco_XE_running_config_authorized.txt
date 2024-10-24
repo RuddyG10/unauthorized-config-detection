@@ -17,8 +17,18 @@ boot system bootflash:packages.conf
 boot-end-marker
 !
 !
+vrf definition VRF1
+ rd 64666:123
+ !
+ address-family ipv4
+  route-target export 64666:123
+  route-target import 64666:123
+ exit-address-family
+!
+logging userinfo
 no logging console
 aaa new-model
+aaa local authentication attempts max-fail 5
 !
 !
 aaa authentication login default local
@@ -135,11 +145,26 @@ diagnostic bootup level minimal
 !
 !
 username admin privilege 15 secret 9 $9$lgJxy7Ga.Th5FU$gocFhcHC/8pvixGr.s2wB7X59FiGVvwYawfCPrmaJuY
+username vikas privilege 15 secret 9 $9$2V6K2/AH3F6M3U$38diyGlw4JMAnX02VnzZmYNXutDVeal1VFPVTTndcQo
 !
 redundancy
 !
 !
 !
+!
+track 1 list boolean or
+ object 2
+ object 3
+ object 4
+ object 5
+!
+track 2 ip route 1.1.1.1 255.255.255.255 reachability
+!
+track 3 ip route 2.2.2.2 255.255.255.255 reachability
+!
+track 4 ip route 3.3.3.3 255.255.255.255 reachability
+!
+track 5 ip route 4.4.4.4 255.255.255.255 reachability
 !
 !
 !
@@ -149,15 +174,29 @@ interface Loopback0
  description "This is a test loopback"
  ip address 56.56.56.56 255.255.255.255
 !
-interface Loopback10
- no ip address
+interface Loopback1
+ ip address 1.1.1.1 255.255.255.0
+!
+interface Loopback3
+ ip address 1.2.3.4 255.255.255.255
 !
 interface Loopback56
  no ip address
 !
+interface Loopback66
+ ip address 66.66.66.66 255.255.255.255
+!
+interface Loopback77
+ description made with AI
+ ip address 77.77.77.77 255.255.255.0
+!
 interface Loopback101
  description Ansible Playbook Test Loopback
  ip address 192.168.2.1 255.255.255.255
+!
+interface Loopback205
+ description Configured by BEVRESTCONF
+ ip address 172.32.100.1 255.255.255.0
 !
 interface Loopback666
  ip address 6.6.6.6 255.255.255.255
@@ -170,6 +209,9 @@ interface Loopback888
  description Imedita Loop888
  ip address 88.88.88.88 255.255.255.255
 !
+interface Loopback131313
+ ip address 13.13.13.13 255.255.255.0
+!
 interface VirtualPortGroup0
  ip address 192.168.1.1 255.255.255.0
  ip nat inside
@@ -177,6 +219,9 @@ interface VirtualPortGroup0
 interface GigabitEthernet1
  description MANAGEMENT INTERFACE - DON'T TOUCH ME
  ip address 10.10.20.48 255.255.255.0
+ standby 1 ip 10.10.20.254
+ standby 1 priority 160
+ standby 1 track 1 decrement 30
  negotiation auto
 !
 interface GigabitEthernet2
@@ -188,7 +233,12 @@ interface GigabitEthernet2
 interface GigabitEthernet3
  description Ansible Test Network Interface 3
  no ip address
+ shutdown
  negotiation auto
+!
+router ospf 1
+ network 66.66.66.66 0.0.0.0 area 0
+ network 77.77.77.77 0.0.0.0 area 0
 !
 router bgp 10000
  bgp log-neighbor-changes
@@ -199,7 +249,6 @@ ip forward-protocol nd
 ip http server
 ip http authentication local
 ip http secure-server
-ip http secure-client-auth
 ip route 0.0.0.0 0.0.0.0 GigabitEthernet1 10.10.20.254
 ip nat inside source list NAT-ACL interface GigabitEthernet1 overload
 ip ssh bulk-mode 131072
@@ -211,14 +260,29 @@ ip access-list extended NAT-ACL
  10 permit ip 192.168.1.0 0.0.0.255 any
 ip access-list extended Test
  10 permit ip any host 1.1.1.1
+ip access-list extended my_acl
+ 10 permit ip host 1.1.1.1 any log
+ 20 permit ip host 2.2.2.2 any log
+ 30 permit ip host 3.3.3.3 any log
+ 40 permit ip host 4.4.4.4 any log
+ 50 permit ip host 5.5.5.5 any log
+logging host 10.10.10.102
+ip access-list standard 10
+ 10 permit 1.1.1.1
 !
+snmp-server group group1 v3 auth read ro-view write rw-view access 55
+snmp-server view ro-view adslMIB excluded
+snmp-server view ro-view ciscoBstunMIB excluded
+snmp-server view rw-view ciscoMgmt.254 excluded
+snmp-server community blablabla RO
 !
 !
 !
 !
 control-plane
 !
-banner motd ^CC
+banner login ^CCCWelcome to the workshop on EE5304 Computer Networks^C
+banner motd ^CCCCC
 Welcome to the DevNet Sandbox for Cat8000V and IOS XE
 
 The following programmability features are already enabled:
@@ -235,7 +299,13 @@ line con 0
 line aux 0
 line vty 0 4
  exec-timeout 0 0
+ logging synchronous level 6
  length 0
+ transport input ssh
+line vty 5 15
+ logging synchronous level 6
+ transport input ssh
+line vty 16 90
  transport input ssh
 !
 call-home
@@ -245,6 +315,11 @@ call-home
  profile "CiscoTAC-1"
   active
   destination transport-method http
+ntp server 10.1.0.11
+ntp server 10.1.0.12
+ntp server 1.2.3.4
+ntp server 10.1.0.13
+ntp server 10.1.0.14
 !
 !
 !

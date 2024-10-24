@@ -3,66 +3,111 @@ from nornir_netmiko.tasks import netmiko_send_command, netmiko_send_config
 from nornir_utils.plugins.functions import print_result
 from nornir_napalm.plugins.tasks import napalm_get
 import difflib
+from save_authorized_config import saveAuthorizeConfig
+import logging
+
+#Configuracion del log
+logging.basicConfig(
+    filename="./logs/error_log.log", #Errores,
+    level=logging.ERROR,
+    format="%(asctime)s - %(levelname)s %(message)s"
+)
 
 # Inicializa Nornir usando los archivos de configuración
 nr = InitNornir(config_file="config.yaml")
 
-"""Metodo para detectar y revertir configuraciones no autorizadas"""
+
+
+"""Método para detectar y revertir configuraciones no autorizadas"""
 def detectConfig(task):
-    
-    #Obtener Configuracion actual del dispositivo
-    current_config_result = task.run(
-        napalm_get,
-        getters=["config"],  # Usar el getter "config" para obtener el running-config
-    )
-    
-    #Guardar especificamente la configuracion en una variable
-    current_running_config = current_config_result.result["config"]["running"]
-    
-    # Leer el archivo del running-config autorizado en la carpeta authorize_config
-    authorized_config_file = f"./authorize_config/{task.host.name}_running_config_authorized.txt"
-    with open(authorized_config_file, "r") as file:
-        authorized_running_config = file.read()
+    try:
 
-    # Comparar el running-config actual con el autorizado
-    if current_running_config != authorized_running_config:
-        print(f"Cambio no autorizado detectado en {task.host.name}")
+        print(f"Iniciando auditoría en {task.host.name}...")
         
-        # Mostrar las diferencias detectadas en ambos archivos usando la libreria difflib
-        diff = difflib.unified_diff(
-            authorized_running_config.splitlines(),
-            current_running_config.splitlines(),
-            lineterm='',
-            fromfile='Configuracion Autorizada',
-            tofile='Configuracion Actual'
+        # Obtener Configuración actual del dispositivo
+        current_config_result = task.run(
+            napalm_get,
+            getters=["config"]
         )
-
-        #Imprimimos las lineas diferentes
-        for line in diff:
-            print(line)
-
-        # Revertir a la configuración autorizada si se detecta un cambio no autorizado
-        print(f"Revirtiendo configuración no autorizada en {task.host.name}")
-
-        #Enviamos todas las lineas de la configuraciona autorizada del archivo al dispositivo
-        task.run(
-            netmiko_send_config,
-            config_commands=authorized_running_config.splitlines()  # Aplicar configuración autorizada
-        )
-
-        #Enviamos el comando wr para guardar la configuracion
-        task.run(
-            netmiko_send_command,
-            command_string="wr" # guardar
-        )
-
-        print(f"Se revirtieron las configuraciones del {task.host.name} exitosamente!")
         
-    else:
-        print(f"No se detectaron cambios no autorizados en {task.host.name}")
+        # Guardar específicamente la configuración en una variable
+        current_running_config = current_config_result.result["config"]["running"]
+        
+        # Leer el archivo del running-config autorizado
+        authorized_config_file = f"./authorize_config/{task.host.name}_running_config_authorized.txt"
+        with open(authorized_config_file, "r") as file:
+            authorized_running_config = file.read()
+        
+        # Comparar la configuración actual con la autorizada
+        if current_running_config != authorized_running_config:
+            print(f"Cambio no autorizado detectado en {task.host.name}")
+            
+            # Mostrar las diferencias usando la librería difflib
+            diff = difflib.unified_diff(
+                authorized_running_config.splitlines(),
+                current_running_config.splitlines(),
+                lineterm='',
+                fromfile='Configuración Autorizada',
+                tofile='Configuración Actual'
+            )
+
+            for line in diff:
+                print(line)
+            print("\n")
+            print("1. Revertir configuración")
+            print("0. Cancelar")
+            validate = input("Elija una opcion (0-1): ")
+            if validate == '1':
+
+                # Revertir la configuracion no autorizada
+                print(f"Revirtiendo configuración no autorizada en {task.host.name}")
+                
+                task.run(
+                    netmiko_send_config,
+                    config_commands=authorized_running_config.splitlines()
+                )
+                
+                task.run(
+                    netmiko_send_command,
+                    command_string="wr"
+                )
+
+                print(f"Se revirtieron las configuraciones del {task.host.name} exitosamente!")
+                saveAuthorizeConfig(task)
+            else:
+                return
+        else:
+            print(f"No se detectaron cambios no autorizados en {task.host.name}")
+    except Exception as ex:
+         print(f"Ocurrio un error durante el procesamiento en el dispositivo {task.host.name}")
+         logging.error(f"Error en el dispositivo {task.host.name}: {ex}",exc_info=True)
 
 
-    
-result = nr.run(task=detectConfig)
-#print_result(result)
 
+# Función para mostrar el menú y ejecutar las opciones
+def show_menu():
+    while True:
+        print("\n--- Menú de Opciones ---")
+        print("1. Guardar configuración de los dispositivos")
+        print("2. Realizar auditoría de configuración")
+        print("3. Salir")
+        
+        choice = input("Seleccione una opción (1-3): ")
+
+        if choice == '1':
+            print("Guardando configuración de los dispositivos...\n")
+            result = nr.run(task=saveAuthorizeConfig)
+            #print_result(result)
+        elif choice == '2':
+            print("Realizando auditoría de configuración...\n")
+            result = nr.run(task=detectConfig)
+            #print_result(result)
+        elif choice == '3':
+            print("Saliendo del programa...")
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
+
+# Ejecutar el menú interactivo
+if __name__ == "__main__":
+    show_menu()
